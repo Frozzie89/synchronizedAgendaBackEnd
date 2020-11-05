@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj": {}
+    "c:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj": {}
   },
   "projects": {
-    "C:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj": {
+    "c:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj",
+        "projectUniqueName": "c:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj",
         "projectName": "TI-BackEnd",
-        "projectPath": "C:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj",
+        "projectPath": "c:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\TI-BackEnd.csproj",
         "packagesPath": "C:\\Users\\frozt\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\obj\\",
+        "outputPath": "c:\\Users\\frozt\\Documents\\Ecole\\bloc3\\TI\\cSharpProjects\\TI-BackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\frozt\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -35,6 +35,12 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "dependencies": {
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.2, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
