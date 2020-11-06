@@ -24,7 +24,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
         public static readonly string ReqDelete = $@"
             DELETE FROM [{TableName}]
-            WHERE {ColId} = @{ColId}";
+            WHERE {ColId} = @{ColId} AND {ColUserName} = @{ColUserName}";
 
         public static readonly string ReqUpdate = $@"
             UPDATE [{TableName}]
@@ -34,9 +34,9 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             {ColFirstName} = @{ColFirstName},
             {ColUserName} = @{ColUserName},
             {ColPassword} = @{ColPassword}
-            WHERE {ColId} = @{ColId}";
+            WHERE {ColId} = @{ColId} AND {ColUserName} = @{ColUserName}";
 
-        public static readonly string ReqGet = ReqQuery + $@" WHERE {ColId} = @{ColId}";
+        public static readonly string ReqGet = ReqQuery + $@" WHERE {ColId} = @{ColId} AND {ColUserName} = @{ColUserName}";
 
         private IUserFactory _userFactory = new UserFactory();
 
@@ -79,7 +79,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             return user;
         }
 
-        public bool Delete(int id)
+        public bool Delete(int id, string userName)
         {
             using (var connection = Database.GetConnection())
             {
@@ -88,13 +88,14 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 command.CommandText = ReqDelete;
                 command.Parameters.AddWithValue($"@{ColId}", id);
+                command.Parameters.AddWithValue($"@{ColUserName}", userName);
 
                 // renvoie le nombre de résultats
                 return command.ExecuteNonQuery() == 1;
             }
         }
 
-        public User Get(int id)
+        public User Get(int id, string userName)
         {
             using (var connection = Database.GetConnection())
             {
@@ -103,6 +104,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 command.CommandText = ReqGet;
                 command.Parameters.AddWithValue($"@{ColId}", id);
+                command.Parameters.AddWithValue($"@{ColUserName}", userName);
+
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
@@ -113,7 +116,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             }
         }
 
-        public bool Update(int id, User user)
+        public bool Update(int id, string userName, User user)
         {
             using (var connection = Database.GetConnection())
             {
@@ -126,6 +129,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 command.Parameters.AddWithValue($"@{ColFirstName}", user.FirstName);
                 command.Parameters.AddWithValue($"@{ColUserName}", user.UserName);
                 command.Parameters.AddWithValue($"@{ColPassword}", user.Password);
+                command.Parameters.AddWithValue($"@{ColId}", id);
+                command.Parameters.AddWithValue($"@{ColUserName}", userName);
 
                 return command.ExecuteNonQuery() == 1;
             }

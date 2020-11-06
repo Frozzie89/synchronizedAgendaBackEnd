@@ -5,9 +5,9 @@ namespace TI_BackEnd.Domain.User
     public interface IUserRepository
     {
         IEnumerable<User> Query();
-        User Get(int id);
+        User Get(int id, string userName);
         User Create(User user);
-        bool Delete(int id);
-        bool Update(int id, User user);
+        bool Delete(int id, string userName);
+        bool Update(int id, string userName, User user);
     }
 }
