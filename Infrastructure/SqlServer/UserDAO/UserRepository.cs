@@ -15,19 +15,19 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
         public static readonly string ColUserName = "username";
         public static readonly string ColPassword = "password";
 
-        public static readonly string ReqQuery = $"SELECT * FROM {TableName}";
+        public static readonly string ReqQuery = $"SELECT * FROM [{TableName}]";
         public static readonly string ReqCreate = $@"
-            INSERT INTO {TableName}({ColEmail}, {ColLastName}, {ColFirstName}, {ColUserName}, {ColPassword})
+            INSERT INTO [{TableName}]({ColEmail}, {ColLastName}, {ColFirstName}, {ColUserName}, {ColPassword})
             OUTPUT INSERTED.{ColId}
             VALUES(@{ColEmail}, @{ColLastName}, @{ColFirstName}, @{ColUserName}, @{ColPassword})";
 
 
         public static readonly string ReqDelete = $@"
-            DELETE FROM {TableName}
+            DELETE FROM [{TableName}]
             WHERE {ColId} = @{ColId}";
 
         public static readonly string ReqUpdate = $@"
-            UPDATE {TableName}
+            UPDATE [{TableName}]
             SET 
             {ColEmail} = @{ColEmail},
             {ColLastName} = @{ColLastName},

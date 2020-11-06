@@ -21,10 +21,21 @@ namespace TI_BackEnd
         }
 
         public IConfiguration Configuration { get; }
+        public static readonly string NAME_ORIGINS = "NAME_ORIGINS";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // uniquement en developpement
+            services.AddCors(options =>
+            {
+                options.AddPolicy(NAME_ORIGINS, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader();
+                });
+            });
             services.AddControllers();
         }
 
@@ -37,6 +48,8 @@ namespace TI_BackEnd
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors(NAME_ORIGINS);
 
             app.UseRouting();
 
