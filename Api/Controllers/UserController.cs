@@ -27,7 +27,7 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{email:string}")]
+        [Route("{email}")]
         public ActionResult<User> GetByEmail(string email)
         {
             User user = _userRepository.Get(email);
@@ -51,7 +51,7 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpDelete]
-        [Route("{email:string}")]
+        [Route("{email}")]
         public ActionResult Delete(string email)
         {
             if (_userRepository.Delete(email))
@@ -71,7 +71,7 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpPut]
-        [Route("{email:string}")]
+        [Route("{email}")]
         public ActionResult Put(string email, [FromBody] User user)
         {
             if (_userRepository.Update(email, user))
