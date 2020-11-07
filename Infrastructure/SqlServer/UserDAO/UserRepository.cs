@@ -24,9 +24,9 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
         public static readonly string ReqDelete = $@"
             DELETE FROM [{TableName}]
-            WHERE {ColId} = @{ColId} AND {ColUserName} = @{ColUserName}";
+            WHERE {ColId} = @{ColId} AND {ColEmail} = @{ColEmail}";
 
-        public static readonly string ReqUpdate = $@"
+        public static readonly string ReqUpdateById = $@"
             UPDATE [{TableName}]
             SET 
             {ColEmail} = @{ColEmail},
@@ -34,9 +34,21 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             {ColFirstName} = @{ColFirstName},
             {ColUserName} = @{ColUserName},
             {ColPassword} = @{ColPassword}
-            WHERE {ColId} = @{ColId} AND {ColUserName} = @{ColUserName}";
+            WHERE {ColId} = @{ColId}";
 
-        public static readonly string ReqGet = ReqQuery + $@" WHERE {ColId} = @{ColId} AND {ColUserName} = @{ColUserName}";
+        public static readonly string ReqUpdateByEmail = $@"
+            UPDATE [{TableName}]
+            SET 
+            {ColEmail} = @{ColEmail},
+            {ColLastName} = @{ColLastName},
+            {ColFirstName} = @{ColFirstName},
+            {ColUserName} = @{ColUserName},
+            {ColPassword} = @{ColPassword}
+            WHERE {ColEmail} = @{ColEmail}";
+
+        public static readonly string ReqGetById = ReqQuery + $@" WHERE {ColId} = @{ColId}";
+
+        public static readonly string ReqGetByEmail = ReqQuery + $@" WHERE {ColEmail} = @{ColEmail}";
 
         private IUserFactory _userFactory = new UserFactory();
 
@@ -79,7 +91,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             return user;
         }
 
-        public bool Delete(int id, string userName)
+        public bool Delete(int id)
         {
             using (var connection = Database.GetConnection())
             {
@@ -88,23 +100,33 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 command.CommandText = ReqDelete;
                 command.Parameters.AddWithValue($"@{ColId}", id);
-                command.Parameters.AddWithValue($"@{ColUserName}", userName);
 
-                // renvoie le nombre de résultats
                 return command.ExecuteNonQuery() == 1;
             }
         }
-
-        public User Get(int id, string userName)
+        public bool Delete(string email)
         {
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqGet;
+                command.CommandText = ReqDelete;
+                command.Parameters.AddWithValue($"@{ColEmail}", email);
+
+                return command.ExecuteNonQuery() == 1;
+            }
+        }
+
+        public User Get(int id)
+        {
+            using (var connection = Database.GetConnection())
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = ReqGetById;
                 command.Parameters.AddWithValue($"@{ColId}", id);
-                command.Parameters.AddWithValue($"@{ColUserName}", userName);
 
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -116,24 +138,72 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             }
         }
 
-        public bool Update(int id, string userName, User user)
+        public User Get(string email)
         {
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqUpdate;
-                command.Parameters.AddWithValue($"@{ColEmail}", user.Email);
-                command.Parameters.AddWithValue($"@{ColLastName}", user.LastName);
-                command.Parameters.AddWithValue($"@{ColFirstName}", user.FirstName);
-                command.Parameters.AddWithValue($"@{ColUserName}", user.UserName);
-                command.Parameters.AddWithValue($"@{ColPassword}", user.Password);
-                command.Parameters.AddWithValue($"@{ColId}", id);
-                command.Parameters.AddWithValue($"@{ColUserName}", userName);
+                command.CommandText = ReqGetByEmail;
+                command.Parameters.AddWithValue($"@{ColEmail}", email);
 
-                return command.ExecuteNonQuery() == 1;
+
+                var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                if (reader.Read())
+                    return _userFactory.CreateFromReader(reader);
+
+                return null;
             }
+        }
+
+        public bool Update(int id, User user)
+        {
+            if (Get(id) == null)
+            {
+                using (var connection = Database.GetConnection())
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+
+                    command.CommandText = ReqUpdateById;
+                    command.Parameters.AddWithValue($"@{ColEmail}", user.Email);
+                    command.Parameters.AddWithValue($"@{ColLastName}", user.LastName);
+                    command.Parameters.AddWithValue($"@{ColFirstName}", user.FirstName);
+                    command.Parameters.AddWithValue($"@{ColUserName}", user.UserName);
+                    command.Parameters.AddWithValue($"@{ColPassword}", user.Password);
+                    command.Parameters.AddWithValue($"@{ColId}", id);
+
+                    return command.ExecuteNonQuery() == 1;
+                }
+
+            }
+            return false;
+
+        }
+
+        public bool Update(string email, User user)
+        {
+            if (Get(email) == null)
+            {
+                using (var connection = Database.GetConnection())
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+
+                    command.CommandText = ReqUpdateByEmail;
+                    command.Parameters.AddWithValue($"@{ColEmail}", user.Email);
+                    command.Parameters.AddWithValue($"@{ColLastName}", user.LastName);
+                    command.Parameters.AddWithValue($"@{ColFirstName}", user.FirstName);
+                    command.Parameters.AddWithValue($"@{ColUserName}", user.UserName);
+                    command.Parameters.AddWithValue($"@{ColPassword}", user.Password);
+                    command.Parameters.AddWithValue($"@{ColEmail}", email);
+
+                    return command.ExecuteNonQuery() == 1;
+                }
+            }
+            return false;
         }
     }
 }
