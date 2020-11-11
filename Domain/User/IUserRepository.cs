@@ -7,6 +7,7 @@ namespace TI_BackEnd.Domain.User
         IEnumerable<User> Query();
         User Get(int id);
         User Get(string email);
+        User GetAuthentification(string email, string password);
         User Create(User user);
         bool Delete(int id);
         bool Delete(string email);

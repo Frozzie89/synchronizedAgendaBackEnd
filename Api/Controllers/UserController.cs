@@ -34,6 +34,14 @@ namespace TI_BackEnd.Api.Controllers
             return user != null ? (ActionResult<User>)Ok(user) : NotFound();
         }
 
+        [HttpGet]
+        [Route("{email}/{password}")]
+        public ActionResult<User> GetAuthentifaction(string email, string password)
+        {
+            User user = _userRepository.GetAuthentification(email, password);
+            return user != null ? (ActionResult<User>)Ok(user) : NotFound();
+        }
+
         [HttpPost]
         public ActionResult<User> Create([FromBody] User user)
         {
