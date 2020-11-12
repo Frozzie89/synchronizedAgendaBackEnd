@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -33,3 +34,59 @@ C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netc
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.dll
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.pdb
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.genruntimeconfig.cache
+=======
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\appsettings.Development.json
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.exe
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.deps.json
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.runtimeconfig.json
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.runtimeconfig.dev.json
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.pdb
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.csprojAssemblyReference.cache
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.AssemblyInfoInputs.cache
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.AssemblyInfo.cs
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.csproj.CoreCompileInputs.cache
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.RazorTargetAssemblyInfo.cache
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.csproj.CopyComplete
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\staticwebassets\TI-BackEnd.StaticWebAssets.Manifest.cache
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\staticwebassets\TI-BackEnd.StaticWebAssets.xml
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.pdb
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.genruntimeconfig.cache
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\appsettings.Development.json
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\appsettings.json
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.exe
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.deps.json
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.runtimeconfig.json
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.runtimeconfig.dev.json
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.dll
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.pdb
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\TI FrontEnd\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.csprojAssemblyReference.cache
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.AssemblyInfoInputs.cache
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.AssemblyInfo.cs
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.csproj.CoreCompileInputs.cache
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.MvcApplicationPartsAssemblyInfo.cache
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.RazorTargetAssemblyInfo.cache
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.csproj.CopyComplete
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\staticwebassets\TI-BackEnd.StaticWebAssets.Manifest.cache
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\staticwebassets\TI-BackEnd.StaticWebAssets.xml
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.dll
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.pdb
+D:\TI FrontEnd\TI-BackEnd\obj\Debug\netcoreapp3.1\TI-BackEnd.genruntimeconfig.cache
+>>>>>>> 65e410f0b4cc130bc79c884b1f09346dac222376
