@@ -50,7 +50,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
         public static readonly string ReqGetByEmail = ReqQuery + $@" WHERE {ColEmail} = @{ColEmail}";
 
-        public static readonly string ReqAuthentification = ReqGetByEmail + $@" AND  {ColPassword} = @{ColPassword}";
+        public static readonly string ReqAuthentication = ReqGetByEmail + $@" AND  {ColPassword} = @{ColPassword}";
 
         private IUserFactory _userFactory = new UserFactory();
 
@@ -208,14 +208,14 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             return false;
         }
 
-        public User GetAuthentification(string email, string password)
+        public User GetAuthentication(string email, string password)
         {
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqAuthentification;
+                command.CommandText = ReqAuthentication;
                 command.Parameters.AddWithValue($"@{ColEmail}", email);
                 command.Parameters.AddWithValue($"@{ColPassword}", password);
 

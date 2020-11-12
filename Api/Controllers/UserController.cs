@@ -1,8 +1,14 @@
+using System;
+using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TI_BackEnd.Domain.User;
 using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace TI_BackEnd.Api.Controllers
 {
@@ -36,10 +42,14 @@ namespace TI_BackEnd.Api.Controllers
 
         [HttpGet]
         [Route("{email}/{password}")]
-        public ActionResult<User> GetAuthentifaction(string email, string password)
+        public ActionResult<User> GetAuthentication(string email, string password)
         {
-            User user = _userRepository.GetAuthentification(email, password);
-            return user != null ? (ActionResult<User>)Ok(user) : NotFound();
+            User user = _userRepository.GetAuthentication(email, password);
+
+            if (user != null)
+                return Ok(new { User = new UserAuthResponse(user) });
+
+            return Unauthorized();
         }
 
         [HttpPost]

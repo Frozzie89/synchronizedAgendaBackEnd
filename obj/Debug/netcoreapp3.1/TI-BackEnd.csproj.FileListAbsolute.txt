@@ -7,7 +7,15 @@ C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netc
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.runtimeconfig.dev.json
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.dll
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\TI-BackEnd.pdb
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Logging.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\sni.dll
 C:\Users\frozt\Documents\Ecole\bloc3\TI\cSharpProjects\TI-BackEnd\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\sni.dll
