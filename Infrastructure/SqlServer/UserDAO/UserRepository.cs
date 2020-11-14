@@ -15,43 +15,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
         public static readonly string ColUserName = "username";
         public static readonly string ColPassword = "password";
 
-        public static readonly string ReqQuery = $"SELECT * FROM [{TableName}]";
-        public static readonly string ReqCreate = $@"
-            INSERT INTO [{TableName}]({ColEmail}, {ColLastName}, {ColFirstName}, {ColUserName}, {ColPassword})
-            OUTPUT INSERTED.{ColId}
-            VALUES(@{ColEmail}, @{ColLastName}, @{ColFirstName}, @{ColUserName}, @{ColPassword})";
-
-
-        public static readonly string ReqDelete = $@"
-            DELETE FROM [{TableName}]
-            WHERE {ColId} = @{ColId} AND {ColEmail} = @{ColEmail}";
-
-        public static readonly string ReqUpdateById = $@"
-            UPDATE [{TableName}]
-            SET 
-            {ColEmail} = @{ColEmail},
-            {ColLastName} = @{ColLastName},
-            {ColFirstName} = @{ColFirstName},
-            {ColUserName} = @{ColUserName},
-            {ColPassword} = @{ColPassword}
-            WHERE {ColId} = @{ColId}";
-
-        public static readonly string ReqUpdateByEmail = $@"
-            UPDATE [{TableName}]
-            SET 
-            {ColEmail} = @{ColEmail},
-            {ColLastName} = @{ColLastName},
-            {ColFirstName} = @{ColFirstName},
-            {ColUserName} = @{ColUserName},
-            {ColPassword} = @{ColPassword}
-            WHERE {ColEmail} = @{ColEmail}";
-
-        public static readonly string ReqGetById = ReqQuery + $@" WHERE {ColId} = @{ColId}";
-
-        public static readonly string ReqGetByEmail = ReqQuery + $@" WHERE {ColEmail} = @{ColEmail}";
-
-        public static readonly string ReqAuthentication = ReqGetByEmail + $@" AND  {ColPassword} = @{ColPassword}";
-
         private IUserFactory _userFactory = new UserFactory();
 
         public IEnumerable<User> Query()
@@ -61,8 +24,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             {
                 connection.Open();
                 SqlCommand command = connection.CreateCommand();
-                command.CommandText = ReqQuery;
-
+                command.CommandText = UserQueries.ReqQuery;
                 SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (reader.Read())
@@ -79,7 +41,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqCreate;
+                command.CommandText = UserQueries.ReqCreate;
 
                 command.Parameters.AddWithValue($"@{ColEmail}", user.Email);
                 command.Parameters.AddWithValue($"@{ColLastName}", user.LastName);
@@ -100,7 +62,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqDelete;
+                command.CommandText = UserQueries.ReqDelete;
                 command.Parameters.AddWithValue($"@{ColId}", id);
 
                 return command.ExecuteNonQuery() == 1;
@@ -113,7 +75,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqDelete;
+                command.CommandText = UserQueries.ReqDelete;
                 command.Parameters.AddWithValue($"@{ColEmail}", email);
 
                 return command.ExecuteNonQuery() == 1;
@@ -127,7 +89,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqGetById;
+                command.CommandText = UserQueries.ReqGetById;
                 command.Parameters.AddWithValue($"@{ColId}", id);
 
 
@@ -147,7 +109,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqGetByEmail;
+                command.CommandText = UserQueries.ReqGetByEmail;
                 command.Parameters.AddWithValue($"@{ColEmail}", email);
 
 
@@ -169,7 +131,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                     connection.Open();
                     var command = connection.CreateCommand();
 
-                    command.CommandText = ReqUpdateById;
+                    command.CommandText = UserQueries.ReqUpdateById;
                     command.Parameters.AddWithValue($"@{ColEmail}", user.Email);
                     command.Parameters.AddWithValue($"@{ColLastName}", user.LastName);
                     command.Parameters.AddWithValue($"@{ColFirstName}", user.FirstName);
@@ -194,7 +156,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                     connection.Open();
                     var command = connection.CreateCommand();
 
-                    command.CommandText = ReqUpdateByEmail;
+                    command.CommandText = UserQueries.ReqUpdateByEmail;
                     command.Parameters.AddWithValue($"@{ColEmail}", user.Email);
                     command.Parameters.AddWithValue($"@{ColLastName}", user.LastName);
                     command.Parameters.AddWithValue($"@{ColFirstName}", user.FirstName);
@@ -215,7 +177,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = ReqAuthentication;
+                command.CommandText = UserQueries.ReqAuthentication;
                 command.Parameters.AddWithValue($"@{ColEmail}", email);
                 command.Parameters.AddWithValue($"@{ColPassword}", password);
 
