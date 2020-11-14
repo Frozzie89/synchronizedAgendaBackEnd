@@ -4,7 +4,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer
 {
     public class Database
     {
-        private static readonly string ConnectionString = @"Server=MSI\SQLEXPRESS;Database=todos;Integrated Security=SSPI";
+        private static readonly string ConnectionString = @"Server=DESKTOP-MHOOABJ\SQLEXPRESS;Database=Project_GroupeB4;Integrated Security=SSPI";
 
         public static SqlConnection GetConnection()
         {

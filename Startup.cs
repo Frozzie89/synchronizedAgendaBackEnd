@@ -80,7 +80,6 @@ namespace TI_BackEnd
 
             app.UseRouting();
 
-
             app.UseAuthentication();
 
             app.UseAuthorization();
