@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System.IdentityModel.Tokens.Jwt;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TI_BackEnd.Api.Controllers
 {
@@ -41,6 +42,7 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         [Route("{email}/{password}")]
         public ActionResult<User> GetAuthentication(string email, string password)
         {
