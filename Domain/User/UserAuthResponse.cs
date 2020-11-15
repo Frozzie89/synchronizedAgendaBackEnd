@@ -29,10 +29,18 @@ namespace TI_BackEnd.Domain.User
             var secretKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_is_my_custom_Secret_key_for_authentication"));
             var signingCredentials = new SigningCredentials(secretKey, SecurityAlgorithms.HmacSha256);
 
+            var claims = new List<Claim> {
+                new Claim("id", (user.Id).ToString()),
+                new Claim("FirstName", user.FirstName),
+                new Claim("LastName", user.LastName),
+                new Claim("UserName", user.UserName),
+                new Claim("Email", user.Email)
+            };
+
             var tokenOptions = new JwtSecurityToken(
                 issuer: "https://localhost:5501",
                 audience: "https://localhost:5501",
-                claims: new List<Claim>(),
+                claims: claims,
                 expires: DateTime.Now.AddDays(7),
                 signingCredentials: signingCredentials
             );

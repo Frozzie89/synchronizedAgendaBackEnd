@@ -42,7 +42,6 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         [Route("{email}/{password}")]
         public ActionResult<User> GetAuthentication(string email, string password)
         {
