@@ -3,7 +3,7 @@ using TI_BackEnd.Domain.User;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 {
-    public class UserFactory : IUserFactory
+    public class UserFactory : IFactory<User>
     {
         public User CreateFromReader(SqlDataReader reader)
         {

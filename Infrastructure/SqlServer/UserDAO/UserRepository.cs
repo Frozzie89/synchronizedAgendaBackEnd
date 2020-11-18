@@ -15,7 +15,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
         public static readonly string ColUserName = "username";
         public static readonly string ColPassword = "password";
 
-        private IUserFactory _userFactory = new UserFactory();
+        private IFactory<User> _userFactory = new UserFactory();
 
         public IEnumerable<User> Query()
         {
