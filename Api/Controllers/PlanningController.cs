@@ -1,7 +1,6 @@
 using System.Linq;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using TI_BackEnd.Domain;
 using TI_BackEnd.Domain.Planning;
 using TI_BackEnd.Infrastructure.SqlServer.PlanningDAO;
 

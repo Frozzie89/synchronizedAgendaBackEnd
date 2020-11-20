@@ -1,16 +1,8 @@
-using System;
-using System.Security.Claims;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TI_BackEnd.Domain.User;
 using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using System.IdentityModel.Tokens.Jwt;
-using Microsoft.AspNetCore.Authorization;
-using TI_BackEnd.Domain;
 
 namespace TI_BackEnd.Api.Controllers
 {

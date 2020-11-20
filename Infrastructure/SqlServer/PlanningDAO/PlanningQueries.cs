@@ -10,8 +10,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
         public static readonly string ReqQuery = $"SELECT * FROM [{TableName}]";
 
         public static readonly string ReqCreate = $@"
-            INSERT INTO [{TableName}]({ColLabel}, {ColIdSuperUser}
-            OUTPUT INSERTED.{ColId})
+            INSERT INTO [{TableName}]({ColLabel}, {ColIdSuperUser})
+            OUTPUT INSERTED.{ColId}
             VALUES(@{ColLabel}, @{ColIdSuperUser})";
 
         public static readonly string ReqDelete = $@"

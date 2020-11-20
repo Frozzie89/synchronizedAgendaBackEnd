@@ -9,9 +9,9 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
         {
             return new Planning
             {
-                Id = reader.GetInt32(reader.GetOrdinal(PlanningRepository.ColId)),
-                LabelPlanning = reader.GetString(reader.GetOrdinal(PlanningRepository.ColLabel)),
-                IdSuperUser = reader.GetInt32(reader.GetOrdinal(PlanningRepository.ColIdSuperUser)),
+                Id = reader.GetInt32(reader.GetOrdinal(PlanningQueries.ColId)),
+                LabelPlanning = reader.GetString(reader.GetOrdinal(PlanningQueries.ColLabel)),
+                IdSuperUser = reader.GetInt32(reader.GetOrdinal(PlanningQueries.ColIdSuperUser)),
             };
         }
     }

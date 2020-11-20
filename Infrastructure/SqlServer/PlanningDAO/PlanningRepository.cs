@@ -2,18 +2,18 @@ using System.Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Planning;
+using TI_BackEnd.Infrastructure.SqlServer.ChatDAO;
+using TI_BackEnd.Domain.Chat;
+using TI_BackEnd.Domain.User;
+using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
 {
     public class PlanningRepository : IPlanningRepository
     {
-        public static readonly string TableName = "Planning";
-        public static readonly string ColId = "idPlanning";
-        public static readonly string ColLabel = "labelPlanning";
-        public static readonly string ColIdSuperUser = "superUser";
-
-
         private IFactory<Planning> _planningFactory = new PlanningFactory();
+        private IChatRepository _chatRepository = new ChatRepository();
+        private IUserRepository _userRepository = new UserRepository();
 
         public Planning Create(Planning planning)
         {
@@ -22,12 +22,17 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = PlanningQueries.ReqCreate;
+                if (_userRepository.Get(planning.IdSuperUser) == null)
+                    return null;
 
-                command.Parameters.AddWithValue($"@{ColLabel}", planning.LabelPlanning);
-                command.Parameters.AddWithValue($"@{ColIdSuperUser}", planning.IdSuperUser);
+                command.CommandText = PlanningQueries.ReqCreate;
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColLabel}", planning.LabelPlanning);
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColIdSuperUser}", planning.IdSuperUser);
 
                 planning.Id = (int)command.ExecuteScalar();
+                Chat chat = new Chat { IdPlanning = planning.Id };
+                _chatRepository.Create(chat);
+
             }
 
             return planning;
@@ -40,8 +45,10 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
+                _chatRepository.DeleteByPlanningId(id);
+
                 command.CommandText = PlanningQueries.ReqDelete;
-                command.Parameters.AddWithValue($"@{ColId}", id);
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
 
                 return command.ExecuteNonQuery() == 1;
             }
@@ -55,7 +62,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 var command = connection.CreateCommand();
 
                 command.CommandText = PlanningQueries.ReqGetById;
-                command.Parameters.AddWithValue($"@{ColId}", id);
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
 
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -75,7 +82,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 var command = connection.CreateCommand();
 
                 command.CommandText = PlanningQueries.ReqGetByLabel;
-                command.Parameters.AddWithValue($"@{ColLabel}", LabelPlanning);
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColLabel}", LabelPlanning);
 
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -95,7 +102,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 var command = connection.CreateCommand();
 
                 command.CommandText = PlanningQueries.ReqGetBySuperUser;
-                command.Parameters.AddWithValue($"@{ColIdSuperUser}", IdSuperUser);
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColIdSuperUser}", IdSuperUser);
 
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
@@ -134,8 +141,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                     var command = connection.CreateCommand();
 
                     command.CommandText = PlanningQueries.ReqQuery;
-                    command.Parameters.AddWithValue($"@{ColLabel}", planning.LabelPlanning);
-                    command.Parameters.AddWithValue($"@{ColId}", id);
+                    command.Parameters.AddWithValue($"@{PlanningQueries.ColLabel}", planning.LabelPlanning);
+                    command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
 
                     return command.ExecuteNonQuery() == 1;
                 }
