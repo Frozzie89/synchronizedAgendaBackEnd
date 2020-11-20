@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace TI_BackEnd.Domain
 {
     public interface IRepository<T> : IRepositoryGetOnly<T>
