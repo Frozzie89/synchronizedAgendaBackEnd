@@ -4,6 +4,7 @@ namespace TI_BackEnd.Domain.Message
 {
     public interface IMessageRepository : IRepository<Message>
     {
-        IEnumerable<Message> QueryChat();
+        IEnumerable<Message> QueryFromChat(int idChat);
+        bool DeleteAllFromChat(int idChat);
     }
 }

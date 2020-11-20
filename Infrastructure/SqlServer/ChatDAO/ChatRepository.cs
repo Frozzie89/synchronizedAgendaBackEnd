@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Chat;
+using TI_BackEnd.Domain.Message;
+using TI_BackEnd.Infrastructure.SqlServer.MessageDAO;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.ChatDAO
 {
@@ -113,22 +115,17 @@ namespace TI_BackEnd.Infrastructure.SqlServer.ChatDAO
 
         public bool Update(int id, Chat chat)
         {
-            if (Get(id) == null)
+            using (var connection = Database.GetConnection())
             {
-                using (var connection = Database.GetConnection())
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
+                connection.Open();
+                var command = connection.CreateCommand();
 
-                    command.CommandText = ChatQueries.ReqQuery;
-                    command.Parameters.AddWithValue($"@{ChatQueries.ColIdPlanning}", chat.IdPlanning);
-                    command.Parameters.AddWithValue($"@{ChatQueries.ColId}", id);
+                command.CommandText = ChatQueries.ReqQuery;
+                command.Parameters.AddWithValue($"@{ChatQueries.ColIdPlanning}", chat.IdPlanning);
+                command.Parameters.AddWithValue($"@{ChatQueries.ColId}", id);
 
-                    return command.ExecuteNonQuery() == 1;
-                }
-
+                return command.ExecuteNonQuery() == 1;
             }
-            return false;
         }
     }
 }

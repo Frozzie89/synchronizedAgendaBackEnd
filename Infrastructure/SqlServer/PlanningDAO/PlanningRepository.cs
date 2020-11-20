@@ -39,13 +39,11 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
         }
 
         public bool Delete(int id)
-        {
+        {            
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-
-                _chatRepository.DeleteByPlanningId(id);
 
                 command.CommandText = PlanningQueries.ReqDelete;
                 command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
@@ -133,22 +131,17 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
 
         public bool Update(int id, Planning planning)
         {
-            if (Get(id) == null)
+            using (var connection = Database.GetConnection())
             {
-                using (var connection = Database.GetConnection())
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
+                connection.Open();
+                var command = connection.CreateCommand();
 
-                    command.CommandText = PlanningQueries.ReqQuery;
-                    command.Parameters.AddWithValue($"@{PlanningQueries.ColLabel}", planning.LabelPlanning);
-                    command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
+                command.CommandText = PlanningQueries.ReqQuery;
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColLabel}", planning.LabelPlanning);
+                command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
 
-                    return command.ExecuteNonQuery() == 1;
-                }
-
+                return command.ExecuteNonQuery() == 1;
             }
-            return false;
         }
     }
 }
