@@ -14,7 +14,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.EventCategoryDAO
             OUTPUT INSERTED.{ColId}
             VALUES(@{ColLabel}, @{ColColor})";
 
-        public static readonly string ReqDeleteBy = $@"
+        public static readonly string ReqDelete = $@"
             DELETE FROM [{TableName}]
             WHERE {ColId} = @{ColId}";
 
