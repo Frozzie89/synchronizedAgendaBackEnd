@@ -3,7 +3,11 @@ using System.Data;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Invitation;
 using TI_BackEnd.Domain.Member;
+using TI_BackEnd.Domain.Planning;
+using TI_BackEnd.Domain.User;
 using TI_BackEnd.Infrastructure.SqlServer.MemberDAO;
+using TI_BackEnd.Infrastructure.SqlServer.PlanningDAO;
+using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
 {
@@ -11,6 +15,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
     {
         IFactory<Invitation> _invitationFactory = new InvitationFactory();
         IMemberRepository _memberRepository = new MemberRepository();
+        IUserRepository _userRepository = new UserRepository();
+        IPlanningRepository _planningRepository = new PlanningRepository();
 
         public Invitation Create(Invitation invitation)
         {
@@ -18,8 +24,16 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             if (GetByUserAndPlanning(invitation.IdUserRecever, invitation.IdUserRecever) != null)
                 return null;
 
-            // interdiction d'inviter un membre déjà existant dans le planning
+            // interdiction d'inviter un utilisateur déjà existant dans le planning
             if (_memberRepository.Get(invitation.IdUserRecever, invitation.IdPlanning) != null)
+                return null;
+
+            // interdiction d'inviter un utilisateur qui n'existe pas 
+            if (_userRepository.Get(invitation.IdUserRecever) == null)
+                return null;
+
+            // interdiction d'inviter un utilisateur vers un planning qui n'existe pas
+            if (_planningRepository.Get(invitation.IdPlanning) == null)
                 return null;
 
             using (var connection = Database.GetConnection())
