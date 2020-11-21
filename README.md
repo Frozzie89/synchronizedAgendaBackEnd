@@ -5,22 +5,6 @@
 - Joly Lucien
 - Laruelle Loïc
 
-# Todo
+# Status
 
-## Tâches non-attribuées
-
-## Tâches en cours
-
-### DeBels Lieven
----
-
-### Joly Lucien
----
-
-### Laruelle Loïc
----
-
-### Terminé
-
-- user authentication token
-- user repository
+Le projet backEnd est terminé, il peut cependant y avoir quelques modifications dans le futur en cas de bugs, oublis ou améliorations.
