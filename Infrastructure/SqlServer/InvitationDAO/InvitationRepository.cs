@@ -2,15 +2,26 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Invitation;
+using TI_BackEnd.Domain.Member;
+using TI_BackEnd.Infrastructure.SqlServer.MemberDAO;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
 {
     public class InvitationRepository : IInvitationRepository
     {
         IFactory<Invitation> _invitationFactory = new InvitationFactory();
+        IMemberRepository _memberRepository = new MemberRepository();
 
         public Invitation Create(Invitation invitation)
         {
+            // interdiction d'inviter le même utilisateur pour le même planning
+            if (GetByUserAndPlanning(invitation.IdUserRecever, invitation.IdUserRecever) != null)
+                return null;
+
+            // interdiction d'inviter un membre déjà existant dans le planning
+            if (_memberRepository.Get(invitation.IdUserRecever, invitation.IdPlanning) != null)
+                return null;
+
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
@@ -61,16 +72,16 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             }
         }
 
-        public Invitation GetByUserRecever(int idUserRecever)
+        public Invitation GetByUserAndPlanning(int idUserRecever, int idPlanning)
         {
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = InvitationQueries.ReqGetByIdUserRecever;
+                command.CommandText = InvitationQueries.ReqGetByUserReceverAndPlanning;
                 command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", idUserRecever);
-
+                command.Parameters.AddWithValue($"@{InvitationQueries.ColIdPlanning}", idPlanning);
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 

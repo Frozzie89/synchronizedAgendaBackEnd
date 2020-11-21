@@ -27,10 +27,10 @@ namespace TI_BackEnd.Api.Controllers
 
         }
         [HttpGet]
-        [Route("{idUserRecever:int}")]
-        public ActionResult<Invitation> GetByIdUserRecever(int idUserRecever)
+        [Route("{idUserRecever:int}/{idPlanning:int}")]
+        public ActionResult<Invitation> GetByIdUserRecever(int idUserRecever, int idPlanning)
         {
-            Invitation invitation = _invitationRepository.GetByUserRecever(idUserRecever);
+            Invitation invitation = _invitationRepository.GetByUserAndPlanning(idUserRecever, idPlanning);
             return invitation != null ? (ActionResult<Invitation>)Ok(invitation) : NotFound();
         }
 

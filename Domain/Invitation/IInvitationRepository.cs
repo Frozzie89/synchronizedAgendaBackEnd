@@ -2,6 +2,6 @@ namespace TI_BackEnd.Domain.Invitation
 {
     public interface IInvitationRepository : IRepository<Invitation>
     {
-        Invitation GetByUserRecever(int idUserRecever);
+        Invitation GetByUserAndPlanning(int idUserRecever, int idPlanning);
     }
 }

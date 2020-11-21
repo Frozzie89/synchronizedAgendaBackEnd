@@ -28,7 +28,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
         public static readonly string ReqGetById = ReqQuery + $@"
             WHERE {ColId} = @{ColId}";
 
-        public static readonly string ReqGetByIdUserRecever = ReqQuery + $@"
-            WHERE {ColIdUserRecever} = @{ColIdUserRecever}";
+        public static readonly string ReqGetByUserReceverAndPlanning = ReqQuery + $@"
+            WHERE {ColIdUserRecever} = @{ColIdUserRecever} AND {ColIdPlanning} = @{ColIdPlanning}";
     }
 }

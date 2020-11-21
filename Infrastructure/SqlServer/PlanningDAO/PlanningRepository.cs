@@ -30,6 +30,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 command.Parameters.AddWithValue($"@{PlanningQueries.ColIdSuperUser}", planning.IdSuperUser);
 
                 planning.Id = (int)command.ExecuteScalar();
+
+                // un chat est automatiquement créé lors de la création du planning
                 Chat chat = new Chat { IdPlanning = planning.Id };
                 _chatRepository.Create(chat);
 
