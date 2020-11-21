@@ -19,13 +19,14 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MessageDAO
 
         public Message Create(Message message)
         {
+            // interdiction de créer un message si pas d'utilisateur ou pas de chat
+            if (_userRepository.Get(message.IdUser) == null || _chatRepository.Get(message.IdChat) == null)
+                return null;
+
             using (var connection = Database.GetConnection())
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-
-                if (_userRepository.Get(message.IdUser) == null || _chatRepository.Get(message.IdChat) == null)
-                    return null;
 
                 command.CommandText = MessageQueries.ReqCreate;
                 command.Parameters.AddWithValue($"@{MessageQueries.ColIdChat}", message.IdChat);
@@ -130,7 +131,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MessageDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = MessageQueries.ReqQuery;
+                command.CommandText = MessageQueries.ReqUpdate;
                 command.Parameters.AddWithValue($"@{MessageQueries.ColBody}", message.Body);
                 command.Parameters.AddWithValue($"@{MessageQueries.ColId}", id);
 
