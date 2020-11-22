@@ -32,6 +32,10 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             if (_userRepository.Get(invitation.IdUserRecever) == null)
                 return null;
 
+            // interdiction d'inviter un superUtilisateur à son propre planning
+            if (_planningRepository.GetBySuperUser(invitation.IdUserRecever) != null)
+                return null;
+
             // interdiction d'inviter un utilisateur vers un planning qui n'existe pas
             if (_planningRepository.Get(invitation.IdPlanning) == null)
                 return null;
