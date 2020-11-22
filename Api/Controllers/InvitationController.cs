@@ -19,6 +19,13 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
+        [Route("{idUserRecever:int}/*")]
+        public ActionResult<IEnumerable<Invitation>> QueryFromUserRecever(int idUserRecever)
+        {
+            return Ok(_invitationRepository.QueryFromUserRecever(idUserRecever).Cast<Invitation>());
+        }
+
+        [HttpGet]
         [Route("{id:int}")]
         public ActionResult<Invitation> GetById(int id)
         {

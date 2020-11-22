@@ -123,6 +123,24 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             return invitations;
         }
 
+        public IEnumerable<Invitation> QueryFromUserRecever(int idUserRecever)
+        {
+            IList<Invitation> invitations = new List<Invitation>();
+            using (SqlConnection connection = Database.GetConnection())
+            {
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = InvitationQueries.ReqQueryFromUserRecever;
+                command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", idUserRecever);
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (reader.Read())
+                    invitations.Add(_invitationFactory.CreateFromReader(reader));
+            }
+
+            return invitations;
+        }
+
         public bool Update(int id, Invitation invitation)
         {
             using (var connection = Database.GetConnection())

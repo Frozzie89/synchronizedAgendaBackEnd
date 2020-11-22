@@ -9,6 +9,10 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
 
         public static readonly string ReqQuery = $"SELECT * FROM [{TableName}]";
 
+        public static readonly string ReqQueryFromUserRecever = $@"
+            SELECT * FROM [{TableName}] 
+            WHERE {ColIdUserRecever} = @{ColIdUserRecever}";
+
         public static readonly string ReqCreate = $@"
             INSERT INTO [{TableName}]({ColIdUserRecever}), ({ColIdPlanning})
             OUTPUT INSERTED.{ColId}
