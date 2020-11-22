@@ -27,8 +27,8 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{idPlanning:int}")]
-        public ActionResult<Chat> GetByLabel(int idPlanning)
+        [Route("{idPlanning:int}/planning")]
+        public ActionResult<Chat> GetByIdPlanning(int idPlanning)
         {
             Chat chat = _chatRepository.GetByPlanningId(idPlanning);
             return chat != null ? (ActionResult<Chat>)Ok(chat) : NotFound();
