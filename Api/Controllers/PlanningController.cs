@@ -35,7 +35,7 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{idSuperUser:int}")]
+        [Route("{idSuperUser:int}/SU")]
         public ActionResult<Planning> GetBySuperId(int idSuperUser)
         {
             Planning planning = _planningRepository.GetBySuperUser(idSuperUser);
