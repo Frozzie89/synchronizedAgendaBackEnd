@@ -10,11 +10,11 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
     public class MemberRepository : IMemberRepository
     {
         private IFactory<Member> _memberFactory = new MemberFactory();
-        private IInvitationRepository _invitationRepository = new InvitationRepository();
-
 
         public Member Create(Member member)
         {
+            IInvitationRepository _invitationRepository = new InvitationRepository();
+
             // interdiction de créer un membre s'il n'y a pas d'invitation en cours
             Invitation invitation = _invitationRepository.GetByUserAndPlanning(member.IdUser, member.IdPlanning);
             if (invitation == null)
