@@ -19,10 +19,17 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{idPlanning:int}/*")]
+        [Route("{idPlanning:int}/p")]
         public ActionResult<IEnumerable<Member>> QueryFromPlanning(int idPlanning)
         {
             return Ok(_memberRepository.QueryFromPlanning(idPlanning).Cast<Member>());
+        }
+
+        [HttpGet]
+        [Route("{idUser:int}/u")]
+        public ActionResult<IEnumerable<Member>> QueryFromUser(int idUser)
+        {
+            return Ok(_memberRepository.QueryFromUser(idUser).Cast<Member>());
         }
 
         [HttpGet]

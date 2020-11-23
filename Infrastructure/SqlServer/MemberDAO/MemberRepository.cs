@@ -112,6 +112,26 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
             return members;
         }
 
+        public IEnumerable<Member> QueryFromUser(int idUser)
+        {
+            IList<Member> members = new List<Member>();
+            using (SqlConnection connection = Database.GetConnection())
+            {
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = MemberQueries.ReqQueryFromPlanning;
+
+                command.Parameters.AddWithValue($"@{MemberQueries.ColIdUser}", idUser);
+
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (reader.Read())
+                    members.Add(_memberFactory.CreateFromReader(reader));
+            }
+
+            return members;
+        }
+
         public bool Update(int idUser, int idPlanning, Member member)
         {
             using (var connection = Database.GetConnection())
