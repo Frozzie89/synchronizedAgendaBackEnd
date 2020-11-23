@@ -14,7 +14,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             WHERE {ColIdUserRecever} = @{ColIdUserRecever}";
 
         public static readonly string ReqCreate = $@"
-            INSERT INTO [{TableName}]({ColIdUserRecever}), ({ColIdPlanning})
+            INSERT INTO [{TableName}]({ColIdUserRecever}, {ColIdPlanning})
             OUTPUT INSERTED.{ColId}
             VALUES(@{ColIdUserRecever}, @{ColIdPlanning})";
 

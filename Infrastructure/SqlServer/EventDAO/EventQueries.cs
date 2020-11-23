@@ -17,7 +17,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.EventDAO
             WHERE {ColIdPlanning} = @{ColIdPlanning}";
 
         public static readonly string ReqCreate = $@"
-            INSERT INTO [{TableName}]({ColIdEventCategory}), ({ColIdPlanning}), ({ColLabel}), ({ColStart}), ({ColEnd})
+            INSERT INTO [{TableName}]({ColIdEventCategory}, {ColIdPlanning}, {ColLabel}, {ColStart}, {ColEnd})
             OUTPUT INSERTED.{ColId}
             VALUES(@{ColIdEventCategory}, @{ColIdPlanning}, @{ColLabel}, @{ColStart}, @{ColEnd})";
 

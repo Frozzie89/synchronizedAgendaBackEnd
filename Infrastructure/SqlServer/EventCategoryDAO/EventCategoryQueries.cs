@@ -10,7 +10,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.EventCategoryDAO
         public static readonly string ReqQuery = $"SELECT * FROM [{TableName}]";
 
         public static readonly string ReqCreate = $@"
-            INSERT INTO [{TableName}]({ColLabel}), ({ColColor})
+            INSERT INTO [{TableName}]({ColLabel}, {ColColor})
             OUTPUT INSERTED.{ColId}
             VALUES(@{ColLabel}, @{ColColor})";
 
