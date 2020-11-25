@@ -92,6 +92,26 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
             return members;
         }
 
+        public IEnumerable<Member> QueryFromGrantedUser(int idUser)
+        {
+            IList<Member> members = new List<Member>();
+            using (SqlConnection connection = Database.GetConnection())
+            {
+                connection.Open();
+                SqlCommand command = connection.CreateCommand();
+                command.CommandText = MemberQueries.ReqQueryFromGrantedUser;
+
+                command.Parameters.AddWithValue($"@{MemberQueries.ColIdUser}", idUser);
+
+                SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (reader.Read())
+                    members.Add(_memberFactory.CreateFromReader(reader));
+            }
+
+            return members;
+        }
+
         public IEnumerable<Member> QueryFromPlanning(int idPlanning)
         {
             IList<Member> members = new List<Member>();
@@ -119,7 +139,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
             {
                 connection.Open();
                 SqlCommand command = connection.CreateCommand();
-                command.CommandText = MemberQueries.ReqQueryFromPlanning;
+                command.CommandText = MemberQueries.ReqQueryFromUser;
 
                 command.Parameters.AddWithValue($"@{MemberQueries.ColIdUser}", idUser);
 

@@ -7,6 +7,7 @@ namespace TI_BackEnd.Domain.Member
         IEnumerable<Member> Query();
         IEnumerable<Member> QueryFromPlanning(int idPlanning);
         IEnumerable<Member> QueryFromUser(int idUser);
+        IEnumerable<Member> QueryFromGrantedUser(int idUser);
         Member Create(Member member);
         bool Delete(int idUser, int idPlanning);
         Member Get(int idUser, int idPlanning);

@@ -33,6 +33,13 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
+        [Route("{idUser:int}/gu")]
+        public ActionResult<IEnumerable<Member>> QueryFromGrantedUser(int idUser)
+        {
+            return Ok(_memberRepository.QueryFromGrantedUser(idUser).Cast<Member>());
+        }
+
+        [HttpGet]
         [Route("{idUser:int}/{idPlanning:int}")]
         public ActionResult<Member> Get(int idUser, int idPlanning)
         {

@@ -17,6 +17,10 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
             SELECT * FROM [{TableName}]
             WHERE {ColIdUser} = @{ColIdUser}";
 
+        public static readonly string ReqQueryFromGrantedUser = $@"
+            SELECT * FROM [{TableName}]
+            WHERE {ColIdUser} = @{ColIdUser} AND {ColIsGranted} = 1";
+
         public static readonly string ReqCreate = $@"
             INSERT INTO [{TableName}]({ColIdUser}, {ColIdPlanning}, {ColIsGranted})
             VALUES(@{ColIdUser}, @{ColIdPlanning}, @{ColIsGranted})";
