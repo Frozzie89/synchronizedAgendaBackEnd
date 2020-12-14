@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TI_BackEnd.Domain.Member;
+using TI_BackEnd.Domain.Planning;
 using TI_BackEnd.Infrastructure.SqlServer.MemberDAO;
 
 namespace TI_BackEnd.Api.Controllers
@@ -25,11 +26,25 @@ namespace TI_BackEnd.Api.Controllers
             return Ok(_memberRepository.QueryFromPlanning(idPlanning).Cast<Member>());
         }
 
+        // [HttpGet]
+        // [Route("{idUser:int}/u")]
+        // public ActionResult<IEnumerable<Member>> QueryFromUser(int idUser)
+        // {
+        //     return Ok(_memberRepository.QueryFromUser(idUser).Cast<Member>());
+        // }
+
         [HttpGet]
-        [Route("{idUser:int}/u")]
-        public ActionResult<IEnumerable<Member>> QueryFromUser(int idUser)
+        [Route("{idUser:int}/0/u")]
+        public ActionResult<IEnumerable<Member>> QueryPlanningsFromMember(int idUser)
         {
-            return Ok(_memberRepository.QueryFromUser(idUser).Cast<Member>());
+            return Ok(_memberRepository.QueryPlanningsFromMember(idUser, false).Cast<Planning>());
+        }
+
+        [HttpGet]
+        [Route("{idUser:int}/1/u")]
+        public ActionResult<IEnumerable<Member>> QueryPlanningsFromGrantedMember(int idUser)
+        {
+            return Ok(_memberRepository.QueryPlanningsFromMember(idUser, true).Cast<Planning>());
         }
 
         [HttpGet]

@@ -1,3 +1,5 @@
+using TI_BackEnd.Infrastructure.SqlServer.PlanningDAO;
+
 namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
 {
     public static class InvitationQueries
@@ -34,5 +36,11 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
 
         public static readonly string ReqGetByUserReceverAndPlanning = ReqQuery + $@"
             WHERE {ColIdUserRecever} = @{ColIdUserRecever} AND {ColIdPlanning} = @{ColIdPlanning}";
+
+        public static readonly string ReqGetPlanningsOfUserRecever = $@"
+            SELECT {PlanningQueries.TableName}.* FROM {TableName}
+            INNER JOIN {PlanningQueries.TableName} 
+            ON {TableName}.{ColIdPlanning} = {PlanningQueries.TableName}.{PlanningQueries.ColId} 
+            WHERE {TableName}.{ColIdUserRecever} = @{ColIdUserRecever}";
     }
 }

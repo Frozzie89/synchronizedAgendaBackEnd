@@ -1,7 +1,12 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Security.Cryptography;
+using System.Text;
 using TI_BackEnd.Domain.User;
+using System.IO;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 {
@@ -35,12 +40,15 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 command.CommandText = UserQueries.ReqCreate;
 
+                var userCryptedPassword = encryptSha256(user.Password);
+
                 command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", user.Email);
                 command.Parameters.AddWithValue($"@{UserQueries.ColLastName}", user.LastName);
                 command.Parameters.AddWithValue($"@{UserQueries.ColFirstName}", user.FirstName);
                 command.Parameters.AddWithValue($"@{UserQueries.ColUserName}", user.UserName);
-                command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", user.Password);
+                command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", userCryptedPassword);
 
+                user.Password = userCryptedPassword;
                 user.Id = (int)command.ExecuteScalar();
             }
 
@@ -169,10 +177,11 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
+                var userCryptedPassword = encryptSha256(password);
+
                 command.CommandText = UserQueries.ReqAuthentication;
                 command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", email);
-                command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", password);
-
+                command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", userCryptedPassword);
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
@@ -181,6 +190,25 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 return null;
             }
+        }
+
+        private string encryptSha256(string value)
+        {
+            var passwordBytes = Encoding.UTF8.GetBytes(value);
+
+            var sha = new SHA256Managed();
+            var hash = sha.ComputeHash(passwordBytes);
+
+            string hashString = "";
+
+            foreach (var b in hash)
+            {
+                hashString += b.ToString("x2");
+            }
+
+            hashString = hashString.Substring(0, 50);
+
+            return hashString;
         }
     }
 }

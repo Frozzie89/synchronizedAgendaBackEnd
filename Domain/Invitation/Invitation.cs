@@ -14,5 +14,10 @@ namespace TI_BackEnd.Domain.Invitation
             IdUserRecever = idUserRecever;
             IdPlanning = idPlanning;
         }
+
+        public override string ToString()
+        {
+            return "" + Id + ' ' + IdUserRecever + ' ' + IdPlanning;
+        }
     }
 }

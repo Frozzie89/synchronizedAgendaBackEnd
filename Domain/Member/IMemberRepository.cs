@@ -6,6 +6,7 @@ namespace TI_BackEnd.Domain.Member
     {
         IEnumerable<Member> Query();
         IEnumerable<Member> QueryFromPlanning(int idPlanning);
+        IEnumerable<Planning.Planning> QueryPlanningsFromMember(int idUser, bool isGranted);
         IEnumerable<Member> QueryFromUser(int idUser);
         IEnumerable<Member> QueryFromGrantedUser(int idUser);
         Member Create(Member member);

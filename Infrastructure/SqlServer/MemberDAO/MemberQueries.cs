@@ -1,3 +1,5 @@
+using TI_BackEnd.Infrastructure.SqlServer.PlanningDAO;
+
 namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
 {
     public static class MemberQueries
@@ -37,5 +39,14 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
 
         public static readonly string ReqGet = ReqQuery + $@"
             WHERE {ColIdUser} = @{ColIdUser} AND {ColIdPlanning} = @{ColIdPlanning}";
+
+        public static readonly string ReqQueryPlanningsFromMember = $@"
+            SELECT {PlanningQueries.TableName}.* FROM {TableName}
+            INNER JOIN {PlanningQueries.TableName}
+            ON {TableName}.{ColIdPlanning} = {PlanningQueries.TableName}.{PlanningQueries.ColId}
+            WHERE {TableName}.{ColIdUser} = @{ColIdUser}";
+
+        public static readonly string ReqQueryPlanningsFromGrantedMember = ReqQueryPlanningsFromMember + $@"
+            AND {ColIsGranted} = 1";
     }
 }

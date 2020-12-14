@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -18,42 +19,74 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
         IUserRepository _userRepository = new UserRepository();
         IPlanningRepository _planningRepository = new PlanningRepository();
 
-        public Invitation Create(Invitation invitation)
+        private bool canCreate(Invitation invitation)
         {
             // interdiction d'inviter le même utilisateur pour le même planning
             if (GetByUserAndPlanning(invitation.IdUserRecever, invitation.IdUserRecever) != null)
-                return null;
+                return false;
 
             // interdiction d'inviter un utilisateur déjà existant dans le planning
             if (_memberRepository.Get(invitation.IdUserRecever, invitation.IdPlanning) != null)
-                return null;
+                return false;
 
             // interdiction d'inviter un utilisateur qui n'existe pas 
             if (_userRepository.Get(invitation.IdUserRecever) == null)
-                return null;
+                return false;
 
             // interdiction d'inviter un superUtilisateur à son propre planning
             if (_planningRepository.GetBySuperUser(invitation.IdUserRecever) != null)
-                return null;
+                return false;
 
             // interdiction d'inviter un utilisateur vers un planning qui n'existe pas
             if (_planningRepository.Get(invitation.IdPlanning) == null)
-                return null;
+                return false;
 
-            using (var connection = Database.GetConnection())
+            return true;
+        }
+
+        public Invitation Create(Invitation invitation)
+        {
+            if (canCreate(invitation))
             {
-                connection.Open();
-                var command = connection.CreateCommand();
+                using (var connection = Database.GetConnection())
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
 
-                command.CommandText = InvitationQueries.ReqCreate;
+                    command.CommandText = InvitationQueries.ReqCreate;
 
-                command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", invitation.IdUserRecever);
-                command.Parameters.AddWithValue($"@{InvitationQueries.ColIdPlanning}", invitation.IdPlanning);
+                    command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", invitation.IdUserRecever);
+                    command.Parameters.AddWithValue($"@{InvitationQueries.ColIdPlanning}", invitation.IdPlanning);
 
-                invitation.Id = (int)command.ExecuteScalar();
+                    invitation.Id = (int)command.ExecuteScalar();
+                }
             }
 
             return invitation;
+        }
+
+
+        public Invitation Create(Invitation invitation, string userEmail)
+        {
+            if (_userRepository.Get(userEmail) != null)
+                return null;
+
+            if (canCreate(invitation))
+            {
+                using (var connection = Database.GetConnection())
+                {
+                    connection.Open();
+                    var command = connection.CreateCommand();
+
+                    command.CommandText = InvitationQueries.ReqCreate;
+
+                    command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", invitation.IdUserRecever);
+                    command.Parameters.AddWithValue($"@{InvitationQueries.ColIdPlanning}", invitation.IdPlanning);
+
+                    invitation.Id = (int)command.ExecuteScalar();
+                }
+            }
+            return null;
         }
 
         public bool Delete(int id)
@@ -110,6 +143,27 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             }
         }
 
+        public IEnumerable<Planning> QueryPlanningsOfUserRecever(int idUserRecever)
+        {
+            IFactory<Planning> _planningFactory = new PlanningFactory();
+            IList<Planning> invitedPlannings = new List<Planning>();
+            using (var connection = Database.GetConnection())
+            {
+                connection.Open();
+                var command = connection.CreateCommand();
+
+                command.CommandText = InvitationQueries.ReqGetPlanningsOfUserRecever;
+                command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", idUserRecever);
+
+                var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
+                while (reader.Read())
+                    invitedPlannings.Add(_planningFactory.CreateFromReader(reader));
+            }
+
+            return invitedPlannings;
+        }
+
         public IEnumerable<Invitation> Query()
         {
             IList<Invitation> invitations = new List<Invitation>();
@@ -127,23 +181,23 @@ namespace TI_BackEnd.Infrastructure.SqlServer.InvitationDAO
             return invitations;
         }
 
-        public IEnumerable<Invitation> QueryFromUserRecever(int idUserRecever)
-        {
-            IList<Invitation> invitations = new List<Invitation>();
-            using (SqlConnection connection = Database.GetConnection())
-            {
-                connection.Open();
-                SqlCommand command = connection.CreateCommand();
-                command.CommandText = InvitationQueries.ReqQueryFromUserRecever;
-                command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", idUserRecever);
-                SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+        // public IEnumerable<Invitation> QueryFromUserRecever(int idUserRecever)
+        // {
+        //     IList<Invitation> invitations = new List<Invitation>();
+        //     using (SqlConnection connection = Database.GetConnection())
+        //     {
+        //         connection.Open();
+        //         SqlCommand command = connection.CreateCommand();
+        //         command.CommandText = InvitationQueries.ReqQueryFromUserRecever;
+        //         command.Parameters.AddWithValue($"@{InvitationQueries.ColIdUserRecever}", idUserRecever);
+        //         SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
-                while (reader.Read())
-                    invitations.Add(_invitationFactory.CreateFromReader(reader));
-            }
+        //         while (reader.Read())
+        //             invitations.Add(_invitationFactory.CreateFromReader(reader));
+        //     }
 
-            return invitations;
-        }
+        //     return invitations;
+        // }
 
         public bool Update(int id, Invitation invitation)
         {

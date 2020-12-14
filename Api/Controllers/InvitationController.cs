@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using TI_BackEnd.Domain.Invitation;
+using TI_BackEnd.Domain.Planning;
 using TI_BackEnd.Infrastructure.SqlServer.InvitationDAO;
 
 namespace TI_BackEnd.Api.Controllers
@@ -18,11 +19,18 @@ namespace TI_BackEnd.Api.Controllers
             return Ok(_invitationRepository.Query().Cast<Invitation>());
         }
 
+        // [HttpGet]
+        // [Route("{idUserRecever:int}/*")]
+        // public ActionResult<IEnumerable<Invitation>> QueryFromUserRecever(int idUserRecever)
+        // {
+        //     return Ok(_invitationRepository.QueryFromUserRecever(idUserRecever).Cast<Invitation>());
+        // }
+
         [HttpGet]
         [Route("{idUserRecever:int}/*")]
-        public ActionResult<IEnumerable<Invitation>> QueryFromUserRecever(int idUserRecever)
+        public ActionResult<IEnumerable<Invitation>> QueryPlanningsOfUserRecever(int idUserRecever)
         {
-            return Ok(_invitationRepository.QueryFromUserRecever(idUserRecever).Cast<Invitation>());
+            return Ok(_invitationRepository.QueryPlanningsOfUserRecever(idUserRecever).Cast<Planning>());
         }
 
         [HttpGet]
@@ -31,8 +39,8 @@ namespace TI_BackEnd.Api.Controllers
         {
             Invitation invitation = _invitationRepository.Get(id);
             return invitation != null ? (ActionResult<Invitation>)Ok(invitation) : NotFound();
-
         }
+
         [HttpGet]
         [Route("{idUserRecever:int}/{idPlanning:int}")]
         public ActionResult<Invitation> GetByIdUserRecever(int idUserRecever, int idPlanning)
@@ -41,10 +49,22 @@ namespace TI_BackEnd.Api.Controllers
             return invitation != null ? (ActionResult<Invitation>)Ok(invitation) : NotFound();
         }
 
+        // [HttpPost]
+        // public ActionResult<Invitation> Create([FromBody] Invitation invitation)
+        // {
+        //     return Ok(_invitationRepository.Create(invitation));
+        // }
+
         [HttpPost]
-        public ActionResult<Invitation> Create([FromBody] Invitation invitation)
+        [Route("{userEmail}")]
+        public ActionResult<Invitation> Create([FromBody] Invitation invitation, string userEmail)
         {
-            return Ok(_invitationRepository.Create(invitation));
+            Invitation inv = _invitationRepository.Create(invitation, userEmail);
+
+            if (inv == null)
+                return NotFound();
+            else
+                return inv;
         }
 
         [HttpDelete]
