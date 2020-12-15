@@ -74,7 +74,10 @@ namespace TI_BackEnd
                 IdentityModelEventSource.ShowPII = true;
             }
 
-            app.UseHttpsRedirection();
+            if (env.IsProduction())
+            {
+                app.UseHttpsRedirection();
+            }
 
             app.UseCors(NAME_ORIGINS);
 
