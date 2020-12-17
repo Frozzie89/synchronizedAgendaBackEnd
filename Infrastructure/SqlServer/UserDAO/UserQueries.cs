@@ -20,7 +20,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
         public static readonly string ReqDelete = $@"
             DELETE FROM [{TableName}]
-            WHERE {ColId} = @{ColId} AND {ColEmail} = @{ColEmail}";
+            WHERE {ColEmail} = @{ColEmail}";
 
         public static readonly string ReqUpdateById = $@"
             UPDATE [{TableName}]
