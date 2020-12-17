@@ -6,12 +6,11 @@ namespace TI_BackEnd.Services
 {
     public class UserService
     {
-        private UserRepository _userRepository = new UserRepository();
-
         public UserService() { }
 
         public string encryptSha256(string value)
         {
+            UserRepository _userRepository = new UserRepository();
             var passwordBytes = Encoding.UTF8.GetBytes(value);
 
             var sha = new SHA256Managed();

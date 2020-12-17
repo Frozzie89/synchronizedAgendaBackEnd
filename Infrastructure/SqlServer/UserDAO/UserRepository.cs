@@ -1,12 +1,7 @@
-using System.ComponentModel.DataAnnotations.Schema;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Security.Cryptography;
-using System.Text;
 using TI_BackEnd.Domain.User;
-using System.IO;
 using TI_BackEnd.Services;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
@@ -112,6 +107,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", userCryptedPassword);
 
                 var reader = command.ExecuteReader(CommandBehavior.CloseConnection);
+
 
                 if (reader.Read())
                     return _userFactory.CreateFromReader(reader);

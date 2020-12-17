@@ -2,12 +2,6 @@ using System.Collections.Generic;
 
 namespace TI_BackEnd.Domain
 {
-    // public interface IRepository<T>
-    // {
-    //     T Create(T className);
-    //     bool Delete(int id);
-    //     bool Update(int id, T className);
-    // }
 
     public interface IRepositoryGet<T>
     {

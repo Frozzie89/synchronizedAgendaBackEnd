@@ -7,14 +7,14 @@ namespace TI_BackEnd.Service
 {
     public class EventService
     {
-        private EventCategoryRepository _eventCategoryRepository = new EventCategoryRepository();
-        private PlanningRepository _planningRepository = new PlanningRepository();
-        private EventRepository _eventRepository = new EventRepository();
-
         public EventService() { }
 
         public bool canCreate(Event eventt)
         {
+            EventCategoryRepository _eventCategoryRepository = new EventCategoryRepository();
+            PlanningRepository _planningRepository = new PlanningRepository();
+            EventRepository _eventRepository = new EventRepository();
+
             // interdiction de créer un évenement avec une catégorie qui n'existe pas
             if (_eventCategoryRepository.Get(eventt.IdEventCategory) == null)
                 return false;

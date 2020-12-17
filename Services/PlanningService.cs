@@ -7,14 +7,14 @@ namespace TI_BackEnd.Services
 {
     public class PlanningService
     {
-        private ChatRepository _chatRepository = new ChatRepository();
-        private UserRepository _userRepository = new UserRepository();
-        private PlanningRepository _planningRepository = new PlanningRepository();
-
         public PlanningService() { }
 
         public bool canCreate(Planning planning)
         {
+            ChatRepository _chatRepository = new ChatRepository();
+            UserRepository _userRepository = new UserRepository();
+            PlanningRepository _planningRepository = new PlanningRepository();
+
             if (_userRepository.Get(planning.IdSuperUser) == null)
                 return false;
 

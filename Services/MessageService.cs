@@ -7,14 +7,14 @@ namespace TI_BackEnd.Services
 {
     public class MessageService
     {
-        private UserRepository _userRepository = new UserRepository();
-        private ChatRepository _chatRepository = new ChatRepository();
-        private MessageRepository _messageRepository = new MessageRepository();
-
         public MessageService() { }
 
         public bool canCreate(Message message)
         {
+            UserRepository _userRepository = new UserRepository();
+            ChatRepository _chatRepository = new ChatRepository();
+            MessageRepository _messageRepository = new MessageRepository();
+
             // interdiction de créer un message si pas d'utilisateur ou pas de chat
             if (_userRepository.Get(message.IdUser) == null || _chatRepository.Get(message.IdChat) == null)
                 return false;

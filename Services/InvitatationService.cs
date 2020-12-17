@@ -9,15 +9,15 @@ namespace TI_BackEnd.Services
 {
     public class InvitatationService
     {
-        private MemberRepository _memberRepository = new MemberRepository();
-        private UserRepository _userRepository = new UserRepository();
-        private PlanningRepository _planningRepository = new PlanningRepository();
-        private InvitationRepository _invitationRepository = new InvitationRepository();
-
         public InvitatationService() { }
 
         public bool canCreate(Invitation invitation)
         {
+            MemberRepository _memberRepository = new MemberRepository();
+            UserRepository _userRepository = new UserRepository();
+            PlanningRepository _planningRepository = new PlanningRepository();
+            InvitationRepository _invitationRepository = new InvitationRepository();
+
             // interdiction d'inviter le même utilisateur pour le même planning
             if (_invitationRepository.GetByUserAndPlanning(invitation.IdUserRecever, invitation.IdUserRecever) != null)
                 return false;
@@ -43,6 +43,7 @@ namespace TI_BackEnd.Services
 
         public bool doesUserExist(string userEmail)
         {
+            UserRepository _userRepository = new UserRepository();
             return _userRepository.Get(userEmail) != null;
         }
     }

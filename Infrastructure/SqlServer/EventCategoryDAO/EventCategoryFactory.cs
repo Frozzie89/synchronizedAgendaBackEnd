@@ -9,6 +9,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.EventCategoryDAO
         {
             return new EventCategory
             {
+                Id = reader.GetInt32(reader.GetOrdinal(EventCategoryQueries.ColId)),
                 Label = reader.GetString(reader.GetOrdinal(EventCategoryQueries.ColLabel)),
                 Color = reader.GetString(reader.GetOrdinal(EventCategoryQueries.ColColor))
             };
