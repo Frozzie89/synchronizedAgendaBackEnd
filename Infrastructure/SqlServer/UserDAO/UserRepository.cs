@@ -7,12 +7,14 @@ using System.Security.Cryptography;
 using System.Text;
 using TI_BackEnd.Domain.User;
 using System.IO;
+using TI_BackEnd.Services;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 {
     public class UserRepository : IUserRepository
     {
         private IFactory<User> _userFactory = new UserFactory();
+        private UserService _userService = new UserService();
 
         public IEnumerable<User> Query()
         {
@@ -40,7 +42,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 command.CommandText = UserQueries.ReqCreate;
 
-                var userCryptedPassword = encryptSha256(user.Password);
+                var userCryptedPassword = _userService.encryptSha256(user.Password);
 
                 command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", user.Email);
                 command.Parameters.AddWithValue($"@{UserQueries.ColLastName}", user.LastName);
@@ -55,32 +57,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             return user;
         }
 
-        public bool Delete(int id)
-        {
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-
-                command.CommandText = UserQueries.ReqDelete;
-                command.Parameters.AddWithValue($"@{UserQueries.ColId}", id);
-
-                return command.ExecuteNonQuery() == 1;
-            }
-        }
-        public bool Delete(string email)
-        {
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-
-                command.CommandText = UserQueries.ReqDelete;
-                command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", email);
-
-                return command.ExecuteNonQuery() == 1;
-            }
-        }
 
         public User Get(int id)
         {
@@ -122,54 +98,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
             }
         }
 
-        public bool Update(int id, User user)
-        {
-            if (Get(id) == null)
-            {
-                using (var connection = Database.GetConnection())
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-
-                    command.CommandText = UserQueries.ReqUpdateById;
-                    command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", user.Email);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColLastName}", user.LastName);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColFirstName}", user.FirstName);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColUserName}", user.UserName);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", user.Password);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColId}", id);
-
-                    return command.ExecuteNonQuery() == 1;
-                }
-
-            }
-            return false;
-
-        }
-
-        public bool Update(string email, User user)
-        {
-            if (Get(email) == null)
-            {
-                using (var connection = Database.GetConnection())
-                {
-                    connection.Open();
-                    var command = connection.CreateCommand();
-
-                    command.CommandText = UserQueries.ReqUpdateByEmail;
-                    command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", user.Email);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColLastName}", user.LastName);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColFirstName}", user.FirstName);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColUserName}", user.UserName);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColPassword}", user.Password);
-                    command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", email);
-
-                    return command.ExecuteNonQuery() == 1;
-                }
-            }
-            return false;
-        }
-
         public User GetAuthentication(string email, string password)
         {
             using (var connection = Database.GetConnection())
@@ -177,7 +105,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                var userCryptedPassword = encryptSha256(password);
+                var userCryptedPassword = _userService.encryptSha256(password);
 
                 command.CommandText = UserQueries.ReqAuthentication;
                 command.Parameters.AddWithValue($"@{UserQueries.ColEmail}", email);
@@ -190,25 +118,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.UserDAO
 
                 return null;
             }
-        }
-
-        private string encryptSha256(string value)
-        {
-            var passwordBytes = Encoding.UTF8.GetBytes(value);
-
-            var sha = new SHA256Managed();
-            var hash = sha.ComputeHash(passwordBytes);
-
-            string hashString = "";
-
-            foreach (var b in hash)
-            {
-                hashString += b.ToString("x2");
-            }
-
-            hashString = hashString.Substring(0, 50);
-
-            return hashString;
         }
     }
 }

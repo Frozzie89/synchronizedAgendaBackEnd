@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Chat;
-using TI_BackEnd.Domain.Message;
-using TI_BackEnd.Infrastructure.SqlServer.MessageDAO;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.ChatDAO
 {

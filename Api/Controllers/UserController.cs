@@ -10,7 +10,7 @@ namespace TI_BackEnd.Api.Controllers
     [Route("api/users")]
     public class UserController : ControllerBase
     {
-        private IUserRepository _userRepository = new UserRepository();
+        private UserRepository _userRepository = new UserRepository();
 
         [HttpGet]
         public ActionResult<IEnumerable<User>> Query()
@@ -50,46 +50,6 @@ namespace TI_BackEnd.Api.Controllers
         public ActionResult<User> Create([FromBody] User user)
         {
             return Ok(_userRepository.Create(user));
-        }
-
-        [HttpDelete]
-        [Route("{id:int}")]
-        public ActionResult Delete(int id)
-        {
-            if (_userRepository.Delete(id))
-                return Ok();
-
-            return NotFound();
-        }
-
-        [HttpDelete]
-        [Route("{email}")]
-        public ActionResult Delete(string email)
-        {
-            if (_userRepository.Delete(email))
-                return Ok();
-
-            return NotFound();
-        }
-
-        [HttpPut]
-        [Route("{id:int}")]
-        public ActionResult Put(int id, [FromBody] User user)
-        {
-            if (_userRepository.Update(id, user))
-                return Ok();
-
-            return NotFound();
-        }
-
-        [HttpPut]
-        [Route("{email}")]
-        public ActionResult Put(string email, [FromBody] User user)
-        {
-            if (_userRepository.Update(email, user))
-                return Ok();
-
-            return NotFound();
         }
     }
 }

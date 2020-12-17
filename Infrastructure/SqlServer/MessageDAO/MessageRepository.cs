@@ -7,20 +7,20 @@ using TI_BackEnd.Domain.Message;
 using TI_BackEnd.Domain.User;
 using TI_BackEnd.Infrastructure.SqlServer.ChatDAO;
 using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
+using TI_BackEnd.Services;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.MessageDAO
 {
     public class MessageRepository : IMessageRepository
     {
         private IFactory<Message> _messageFactory = new MessageFactory();
-        private IRepository<User> _userRepository = new UserRepository();
-        private IRepository<Chat> _chatRepository = new ChatRepository();
+        private MessageService _messageService = new MessageService();
 
 
         public Message Create(Message message)
         {
-            // interdiction de créer un message si pas d'utilisateur ou pas de chat
-            if (_userRepository.Get(message.IdUser) == null || _chatRepository.Get(message.IdChat) == null)
+
+            if (!_messageService.canCreate(message))
                 return null;
 
             using (var connection = Database.GetConnection())
@@ -37,20 +37,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MessageDAO
             }
 
             return message;
-        }
-
-        public bool Delete(int id)
-        {
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-
-                command.CommandText = MessageQueries.ReqDelete;
-                command.Parameters.AddWithValue($"@{MessageQueries.ColId}", id);
-
-                return command.ExecuteNonQuery() == 1;
-            }
         }
 
         public bool DeleteAllFromChat(int idChat)
@@ -122,21 +108,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MessageDAO
             }
 
             return messages;
-        }
-
-        public bool Update(int id, Message message)
-        {
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-
-                command.CommandText = MessageQueries.ReqUpdate;
-                command.Parameters.AddWithValue($"@{MessageQueries.ColBody}", message.Body);
-                command.Parameters.AddWithValue($"@{MessageQueries.ColId}", id);
-
-                return command.ExecuteNonQuery() == 1;
-            }
         }
     }
 }

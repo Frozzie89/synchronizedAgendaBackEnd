@@ -2,25 +2,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Event;
-using TI_BackEnd.Infrastructure.SqlServer.EventCategoryDAO;
-using TI_BackEnd.Infrastructure.SqlServer.PlanningDAO;
+using TI_BackEnd.Service;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.EventDAO
 {
     public class EventRepository : IEventRepository
     {
         private EventFactory _eventFactory = new EventFactory();
-        private EventCategoryRepository _eventCategoryRepository = new EventCategoryRepository();
-        private PlanningRepository _planningRepository = new PlanningRepository();
+        private EventService _eventService = new EventService();
 
         public Event Create(Event eventt)
         {
-            // interdiction de créer un évenement avec une catégorie qui n'existe pas
-            if (_eventCategoryRepository.Get(eventt.IdEventCategory) == null)
-                return null;
-
-            // interdiction de crééer un évenement dans un planning qui n'existe pas
-            if (_planningRepository.Get(eventt.IdPlanning) == null)
+            if (!_eventService.canCreate(eventt))
                 return null;
 
             using (var connection = Database.GetConnection())

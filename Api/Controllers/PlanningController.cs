@@ -10,7 +10,7 @@ namespace TI_BackEnd.Api.Controllers
     [Route("api/plannings")]
     public class PlanningController : ControllerBase
     {
-        private IPlanningRepository _planningRepository = new PlanningRepository();
+        private PlanningRepository _planningRepository = new PlanningRepository();
 
         [HttpGet]
         public ActionResult<IEnumerable<Planning>> Query()
@@ -46,26 +46,6 @@ namespace TI_BackEnd.Api.Controllers
         public ActionResult<Planning> Create([FromBody] Planning planning)
         {
             return Ok(_planningRepository.Create(planning));
-        }
-
-        [HttpDelete]
-        [Route("{id:int}")]
-        public ActionResult Delete(int id)
-        {
-            if (_planningRepository.Delete(id))
-                return Ok();
-
-            return NotFound();
-        }
-
-        [HttpPut]
-        [Route("{id:int}")]
-        public ActionResult Put(int id, [FromBody] Planning planning)
-        {
-            if (_planningRepository.Update(id, planning))
-                return Ok();
-
-            return NotFound();
         }
     }
 }

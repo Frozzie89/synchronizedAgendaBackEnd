@@ -26,13 +26,6 @@ namespace TI_BackEnd.Api.Controllers
             return Ok(_memberRepository.QueryFromPlanning(idPlanning).Cast<Member>());
         }
 
-        // [HttpGet]
-        // [Route("{idUser:int}/u")]
-        // public ActionResult<IEnumerable<Member>> QueryFromUser(int idUser)
-        // {
-        //     return Ok(_memberRepository.QueryFromUser(idUser).Cast<Member>());
-        // }
-
         [HttpGet]
         [Route("{idUser:int}/0/u")]
         public ActionResult<IEnumerable<Member>> QueryPlanningsFromMember(int idUser)

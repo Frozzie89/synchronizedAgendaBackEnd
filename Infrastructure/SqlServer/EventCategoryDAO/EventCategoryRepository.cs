@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using TI_BackEnd.Domain;
 using TI_BackEnd.Domain.EventCategory;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.EventCategoryDAO

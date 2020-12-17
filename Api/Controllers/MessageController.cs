@@ -10,7 +10,7 @@ namespace TI_BackEnd.Api.Controllers
     [Route("api/messages")]
     public class MessageController : ControllerBase
     {
-        private IMessageRepository _messageRepository = new MessageRepository();
+        private MessageRepository _messageRepository = new MessageRepository();
 
         [HttpGet]
         public ActionResult<IEnumerable<Message>> Query()
@@ -37,26 +37,6 @@ namespace TI_BackEnd.Api.Controllers
         public ActionResult<Message> Create([FromBody] Message message)
         {
             return Ok(_messageRepository.Create(message));
-        }
-
-        [HttpDelete]
-        [Route("{id:int}")]
-        public ActionResult Delete(int id)
-        {
-            if (_messageRepository.Delete(id))
-                return Ok();
-
-            return NotFound();
-        }
-
-        [HttpPut]
-        [Route("{id:int}")]
-        public ActionResult Put(int id, [FromBody] Message message)
-        {
-            if (_messageRepository.Update(id, message))
-                return Ok();
-
-            return NotFound();
         }
     }
 }

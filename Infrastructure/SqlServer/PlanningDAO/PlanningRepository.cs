@@ -4,16 +4,17 @@ using System.Data.SqlClient;
 using TI_BackEnd.Domain.Planning;
 using TI_BackEnd.Infrastructure.SqlServer.ChatDAO;
 using TI_BackEnd.Domain.Chat;
-using TI_BackEnd.Domain.User;
 using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
+using TI_BackEnd.Infrastructure.SqlServer.InvitationDAO;
+using TI_BackEnd.Services;
 
 namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
 {
     public class PlanningRepository : IPlanningRepository
     {
         private IFactory<Planning> _planningFactory = new PlanningFactory();
-        private IChatRepository _chatRepository = new ChatRepository();
-        private IUserRepository _userRepository = new UserRepository();
+        private ChatRepository _chatRepository = new ChatRepository();
+        private PlanningService _planningService = new PlanningService();
 
         public Planning Create(Planning planning)
         {
@@ -21,8 +22,7 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
             {
                 connection.Open();
                 var command = connection.CreateCommand();
-
-                if (_userRepository.Get(planning.IdSuperUser) == null)
+                if (!_planningService.canCreate(planning))
                     return null;
 
                 command.CommandText = PlanningQueries.ReqCreate;
@@ -38,20 +38,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
             }
 
             return planning;
-        }
-
-        public bool Delete(int id)
-        {            
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-
-                command.CommandText = PlanningQueries.ReqDelete;
-                command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
-
-                return command.ExecuteNonQuery() == 1;
-            }
         }
 
         public Planning Get(int id)
@@ -129,21 +115,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
             }
 
             return plannings;
-        }
-
-        public bool Update(int id, Planning planning)
-        {
-            using (var connection = Database.GetConnection())
-            {
-                connection.Open();
-                var command = connection.CreateCommand();
-
-                command.CommandText = PlanningQueries.ReqQuery;
-                command.Parameters.AddWithValue($"@{PlanningQueries.ColLabel}", planning.LabelPlanning);
-                command.Parameters.AddWithValue($"@{PlanningQueries.ColId}", id);
-
-                return command.ExecuteNonQuery() == 1;
-            }
         }
     }
 }
