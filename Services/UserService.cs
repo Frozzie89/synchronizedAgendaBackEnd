@@ -24,7 +24,7 @@ namespace TI_BackEnd.Services
                 hashString += b.ToString("x2");
             }
 
-            // hashString = hashString.Substring(0, 50);
+            hashString = hashString.Substring(0, 50);
 
             return hashString;
         }
