@@ -8,13 +8,12 @@ namespace TI_BackEnd.Domain.Event
         public int IdPlanning { get; set; }
         public string Label { get; set; }
 
-        // format : "dd/MM/yyyy HH:mm"
-        public DateTime Start { get; set; }
-        public DateTime End { get; set; }
+        public string Start { get; set; }
+        public string End { get; set; }
 
         public Event() { }
 
-        public Event(int id, int idEventCategory, int idPlanning, string label, DateTime start, DateTime end)
+        public Event(int id, int idEventCategory, int idPlanning, string label, string start, string end)
         {
             Id = id;
             IdEventCategory = idEventCategory;
