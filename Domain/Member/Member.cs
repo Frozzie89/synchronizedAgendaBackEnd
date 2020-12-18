@@ -1,5 +1,9 @@
 using System;
 namespace TI_BackEnd.Domain.Member
+/* This class is used to define a member.
+ * A user is defined by an id from a user, an id from a planning and a bool to differentiate which member
+ * is moderator of the planning
+ */
 {
     public class Member
     {

@@ -1,4 +1,8 @@
 namespace TI_BackEnd.Domain.EventCategory
+/*
+ * This class is used to define an event category
+ * An event category is defined by an id, a label and a color
+ */
 {
     public class EventCategory
     {

@@ -2,8 +2,6 @@ using System.Data;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using TI_BackEnd.Domain.Planning;
-using TI_BackEnd.Infrastructure.SqlServer.ChatDAO;
-using TI_BackEnd.Domain.Chat;
 using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
 using TI_BackEnd.Infrastructure.SqlServer.InvitationDAO;
 using TI_BackEnd.Services;
@@ -13,7 +11,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
     public class PlanningRepository : IPlanningRepository
     {
         private IFactory<Planning> _planningFactory = new PlanningFactory();
-        private ChatRepository _chatRepository = new ChatRepository();
         private PlanningService _planningService = new PlanningService();
 
         public Planning Create(Planning planning)
@@ -30,10 +27,6 @@ namespace TI_BackEnd.Infrastructure.SqlServer.PlanningDAO
                 command.Parameters.AddWithValue($"@{PlanningQueries.ColIdSuperUser}", planning.IdSuperUser);
 
                 planning.Id = (int)command.ExecuteScalar();
-
-                // un chat est automatiquement créé lors de la création du planning
-                Chat chat = new Chat { IdPlanning = planning.Id };
-                _chatRepository.Create(chat);
 
             }
 

@@ -1,4 +1,7 @@
 namespace TI_BackEnd.Domain.User
+/* This class is used to define a user.
+ * A user is defined by an id, an email, a lastname, a firstname, a username and a password
+ */
 {
     public class User
     {

@@ -27,21 +27,21 @@ namespace TI_BackEnd.Api.Controllers
         }
 
         [HttpGet]
-        [Route("{idUser:int}/0/u")]
-        public ActionResult<IEnumerable<Member>> QueryPlanningsFromMember(int idUser)
+        [Route("{idUser:int}")]
+        public ActionResult<IEnumerable<Planning>> QueryPlanningsFromMember(int idUser)
         {
             return Ok(_memberRepository.QueryPlanningsFromMember(idUser, false).Cast<Planning>());
         }
 
         [HttpGet]
-        [Route("{idUser:int}/1/u")]
-        public ActionResult<IEnumerable<Member>> QueryPlanningsFromGrantedMember(int idUser)
+        [Route("{idUser:int}")]
+        public ActionResult<IEnumerable<Planning>> QueryPlanningsFromGrantedMember(int idUser)
         {
             return Ok(_memberRepository.QueryPlanningsFromMember(idUser, true).Cast<Planning>());
         }
 
         [HttpGet]
-        [Route("{idUser:int}/gu")]
+        [Route("{idUser:int}")]
         public ActionResult<IEnumerable<Member>> QueryFromGrantedUser(int idUser)
         {
             return Ok(_memberRepository.QueryFromGrantedUser(idUser).Cast<Member>());

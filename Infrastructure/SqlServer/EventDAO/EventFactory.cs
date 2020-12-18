@@ -12,8 +12,8 @@ namespace TI_BackEnd.Infrastructure.SqlServer.EventDAO
                 IdEventCategory = reader.GetInt32(reader.GetOrdinal(EventQueries.ColIdEventCategory)),
                 IdPlanning = reader.GetInt32(reader.GetOrdinal(EventQueries.ColIdPlanning)),
                 Label = reader.GetString(reader.GetOrdinal(EventQueries.ColLabel)),
-                Start = reader.GetDateTime(reader.GetOrdinal(EventQueries.ColStart)).ToString(),
-                End = reader.GetDateTime(reader.GetOrdinal(EventQueries.ColEnd)).ToString()
+                Start = reader.GetDateTime(reader.GetOrdinal(EventQueries.ColStart)),
+                End = reader.GetDateTime(reader.GetOrdinal(EventQueries.ColEnd))
             };
         }
     }

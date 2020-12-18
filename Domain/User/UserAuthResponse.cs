@@ -6,6 +6,10 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
 namespace TI_BackEnd.Domain.User
+/*
+ * This class is used to define a user who is connected to our application
+ * This user is defined by an id, an email, a lastname, a firstname, a username and a token
+ */
 {
     public class UserAuthResponse
     {
