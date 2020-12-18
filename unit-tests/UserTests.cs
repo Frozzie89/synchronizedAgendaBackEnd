@@ -9,12 +9,12 @@ namespace unit_tests
     public class UserTests
     {
         private UserRepository _userRepository = new UserRepository();
-        private User userInput = new User(0, "email", "lastname", "firstname", "username", "password");
+        private User _userInput = new User(0, "email", "lastname", "firstname", "username", "password");
 
         [Fact]
         public void Create()
         {
-            User userOutPut = _userRepository.Create(userInput);
+            User userOutPut = _userRepository.Create(_userInput);
 
             Assert.True(userOutPut != null);
         }
@@ -22,7 +22,7 @@ namespace unit_tests
         [Fact]
         public void GetAuthentication()
         {
-            User userInDb = _userRepository.Create(userInput);
+            User userInDb = _userRepository.Create(_userInput);
             User userOutPut = _userRepository.GetAuthentication("email", "password");
 
             Assert.True(userOutPut != null);
@@ -31,7 +31,7 @@ namespace unit_tests
         [Fact]
         public void GetByEmail()
         {
-            User userInDb = _userRepository.Create(userInput);
+            User userInDb = _userRepository.Create(_userInput);
             User userOutPut = _userRepository.Get("email");
 
             Assert.True(userOutPut != null);
@@ -40,7 +40,7 @@ namespace unit_tests
         [Fact]
         public void Query()
         {
-            User userInDb = _userRepository.Create(userInput);
+            User userInDb = _userRepository.Create(_userInput);
             IEnumerable<User> users = _userRepository.Query().ToList();
 
             Assert.True(users.Count() > 0);
