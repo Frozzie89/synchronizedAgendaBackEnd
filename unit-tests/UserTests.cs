@@ -22,25 +22,25 @@ namespace unit_tests
         [Fact]
         public void GetAuthentication()
         {
-            User userInDb = _userRepository.Create(_userInput);
-            User userOutPut = _userRepository.GetAuthentication("email", "password");
+            User userOutPut = _userRepository.Create(_userInput);
+            User userOutPut2 = _userRepository.GetAuthentication("email", "password");
 
-            Assert.True(userOutPut != null);
+            Assert.True(userOutPut2 != null);
         }
 
         [Fact]
         public void GetByEmail()
         {
-            User userInDb = _userRepository.Create(_userInput);
-            User userOutPut = _userRepository.Get("email");
+            User userOutPut = _userRepository.Create(_userInput);
+            User userOutPut2 = _userRepository.Get(userOutPut.Email);
 
-            Assert.True(userOutPut != null);
+            Assert.True(userOutPut2 != null);
         }
 
         [Fact]
         public void Query()
         {
-            User userInDb = _userRepository.Create(_userInput);
+            User userOutPut = _userRepository.Create(_userInput);
             IEnumerable<User> users = _userRepository.Query().ToList();
 
             Assert.True(users.Count() > 0);
