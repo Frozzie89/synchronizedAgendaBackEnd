@@ -1,4 +1,8 @@
 namespace TI_BackEnd.Domain.Planning
+/*This class is used to define a planning.
+ * A planning is defined by an id, a label and the super user id.
+ * A superuser can be considered the moderator of the planning
+ */
 {
     public class Planning
     {

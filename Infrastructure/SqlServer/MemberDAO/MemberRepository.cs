@@ -89,7 +89,17 @@ namespace TI_BackEnd.Infrastructure.SqlServer.MemberDAO
                 SqlDataReader reader = command.ExecuteReader(CommandBehavior.CloseConnection);
 
                 while (reader.Read())
+                {
                     members.Add(_memberFactory.CreateFromReader(reader));
+                }
+
+                foreach (var m in members)
+                {
+                    Console.WriteLine("ID Planning "+m.IdPlanning);
+                    Console.WriteLine("ID USER "+m.IdUser);
+                    Console.WriteLine("Is granted "+m.IsGranted);
+                }
+                    
             }
 
             return members;

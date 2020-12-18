@@ -1,5 +1,4 @@
 using TI_BackEnd.Domain.Planning;
-using TI_BackEnd.Infrastructure.SqlServer.ChatDAO;
 using TI_BackEnd.Infrastructure.SqlServer.PlanningDAO;
 using TI_BackEnd.Infrastructure.SqlServer.UserDAO;
 
@@ -11,7 +10,6 @@ namespace TI_BackEnd.Services
 
         public bool canCreate(Planning planning)
         {
-            ChatRepository _chatRepository = new ChatRepository();
             UserRepository _userRepository = new UserRepository();
             PlanningRepository _planningRepository = new PlanningRepository();
 
