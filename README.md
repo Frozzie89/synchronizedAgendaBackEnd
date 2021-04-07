@@ -4,7 +4,3 @@
 - DeBels Lieven
 - Joly Lucien
 - Laruelle Loïc
-
-# Status
-
-Le projet backEnd est terminé, il peut cependant y avoir quelques modifications dans le futur en cas de bugs, oublis ou améliorations.
